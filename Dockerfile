@@ -1,16 +1,20 @@
-FROM python:3.12-slim
+# Dockerfile
+FROM python:3.11-slim
 
+# Set working directory
 WORKDIR /app
 
-# Cài dependencies
+# Copy requirements
 COPY requirements.txt .
+
+# Cài đặt dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy toàn bộ source
+# Copy toàn bộ source code
 COPY . .
 
-# Expose port
-EXPOSE 5001
+# Expose port (phải giống với port bạn dùng trong app.run)
+EXPOSE 6001
 
-# Chạy Flask trực tiếp qua module entrypoint
-CMD ["python", "-m", "src.infrastructure.web.app"]
+# Command chạy app
+CMD ["python", "app.py"]

@@ -1,17 +1,17 @@
-version: '3.9'
+version: "3.9"
 
 services:
-  flask-app:
+  api:
     build: .
-    container_name: flask-app
-    env_file: .env
+    container_name: flask_api
     ports:
-      - "5001:5001"
+      - "6001:6001"   # map host port 5001 sang container
     environment:
-      - PYTHONPATH=/app  # <-- thêm đường dẫn src
+      DATABASE_URL: "postgresql://postgres:postgres@postgres_db:5432/pythondb"
+      REDIS_URL: "redis://redis-stack:6379/0"
+      JWT_SECRET_KEY: "your_secret_key"
     networks:
-      - flask-network   # join network có sẵn
-
+      - flask-network
 
 networks:
   flask-network:
