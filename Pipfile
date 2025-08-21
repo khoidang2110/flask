@@ -1,0 +1,51 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask-jwt-extended = ">=4.6.0"  # JWT authentication
+flask-cors = ">=4.0.0"  # Cross-origin request support
+redis = {extras = ["hiredis"]}  # Redis client with hiredis acceleration
+python-dotenv = ">=1.0.0"  # Environment variable management
+pydantic = ">=2.5.0"  # Data validation and settings management
+gunicorn = ">=21.0.0"  # WSGI server
+psycopg2-binary = ">=2.9.0"  # PostgreSQL driver
+dependency-injector = ">=4.41.0"  # Dependency injection container
+flask = "*"
+flask-sqlalchemy = "*"
+flask-migrate = "*"
+passlib = "*"  # Thêm dòng này để cài đặt passlib
+sqlalchemy = "*"
+pydantic-settings = "*"
+flask-restx = "*"
+
+[dev-packages]
+ruff = "*"  # Linting and formatting tool
+mypy = "*"  # Type checker
+pytest = ">=8.0.0"  # Unit testing framework
+pytest-cov = ">=5.0.0"  # Test coverage reporting
+pytest-mock = ">=3.12.0"  # Mocking utilities for tests
+pre-commit = ">=3.7.0"  # Git pre-commit hook manager
+bandit = {extras = ["toml"]}  # Security scanner
+types-redis = "*"  # Type hints for Redis
+types-flask = "*"  # Type hints for Flask
+factory-boy = ">=3.3.0"  # Test data factory
+
+[requires]
+python_version = "3.12"
+
+[scripts]  # Common command shortcuts
+dev = "python -m flask --app src.infrastructure.web.app run --debug --host=0.0.0.0 --port=5001"
+test = "python -m pytest src/tests/ --cov=src --cov-report=term-missing -v"  # Run tests with coverage
+test-html = "python -m pytest src/tests/ --cov=src --cov-report=html"  # Generate HTML coverage report
+lint = "python -m ruff check src/"  # Run linter
+lint-fix = "python -m ruff check src/ --fix"  # Auto-fix lint issues
+format = "python -m ruff format src/"  # Format code
+type-check = "python -m mypy src/"  # Run type checks
+security = "python -m bandit -r src/"  # Run security scan
+check-all = "python -m ruff check src/ && python -m ruff format src/ --check && python -m mypy src/ && python -m bandit -r src/"  # Run all checks
+install-hooks = "pre-commit install"  # Install git hooks
+migrate = "python -m flask db migrate"  # Create migration
+upgrade = "python -m flask db upgrade"  # Apply migrations
+shell = "python -m flask shell"  # Interactive shell

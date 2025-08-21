@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  flask-app:
+    build: .
+    container_name: flask-app
+    env_file: .env
+    ports:
+      - "5001:5001"
+    environment:
+      - PYTHONPATH=/app  # <-- thêm đường dẫn src
+    networks:
+      - flask-network   # join network có sẵn
+
+
+networks:
+  flask-network:
+    external: true
